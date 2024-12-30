@@ -229,11 +229,7 @@ export async function GroupModule(wbot, message) {
    * FUNCTION REPLY TERIMA
   -------------------------- */
   async function ReplyTerima() {
-    if (!fromAdmin)
-      return await wbot.sendMessage(messageRjid, {
-        text: note.notif10,
-        mentions: [messageFrom],
-      });
+    if (!fromAdmin) return;
 
     const dataTerima = messageMssg.extendedTextMessage.contextInfo;
     const textTerima = dataTerima.quotedMessage.imageMessage.caption;
@@ -242,7 +238,7 @@ export async function GroupModule(wbot, message) {
     const command = textTerima.split(" ")[0].toLowerCase();
     const balance = textTerima.split(" ")[1];
 
-    if (command !== "depo" || command !== "deposit")
+    if (command !== "depo" && command !== "deposit")
       return await wbot.sendMessage(messageRjid, {
         text: note.notif7,
         mentions: [messageFrom],
@@ -435,7 +431,7 @@ export async function GroupModule(wbot, message) {
           `\n_Pesanan anda berhasil diproses, terimakasih sudah order._`;
         await wbot.sendMessage(messageFrom, { text: messageUser });
       }
-    } else if (trxResult?.rc === "02") {
+    } else {
       messageSend =
         `*ORDER ${trxRef} FAILED*` +
         `\n•───────────────•` +
@@ -637,10 +633,10 @@ export async function GroupModule(wbot, message) {
       case "product":
         {
           const newProduct = addBody.split(".");
-          const newCode = newProduct[0];
-          const newBrand = newProduct[1];
-          const newProfit = newProduct[2];
-          const newCategory = newProduct[3];
+          const newCode = newProduct[0].toLowerCase();
+          const newBrand = newProduct[1].toLowerCase();
+          const newProfit = Number(newProduct[2]);
+          const newCategory = newProduct[3].toLowerCase();
           const cekCategory = groupCategory.filter((i) => i === newCategory);
 
           if (!newCode || !newBrand || !newProfit || !newCategory)
@@ -663,7 +659,7 @@ export async function GroupModule(wbot, message) {
           });
 
           UpdateGroup(groupConf);
-          const messageSend = note.notif14 + `*${newCategory}* untuk melihat.`;
+          const messageSend = note.notif15 + `*${newCategory}* untuk melihat.`;
           await wbot.sendMessage(messageRjid, {
             text: messageSend,
             mentions: [messageFrom],
