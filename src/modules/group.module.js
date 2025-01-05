@@ -5,6 +5,8 @@ import {
   Fnumber,
   UpdateBalance,
   UpdateGroup,
+  GetOrder,
+  UpdateOrderHistory,
 } from "../libraries/private.library.js";
 import {
   DigiBalance,
@@ -346,11 +348,11 @@ export async function GroupModule(wbot, message) {
    * FUNCTION REPLY ORDER
   -------------------------- */
   async function ReplyOrder() {
-    const trxSku = messageBody.split(" ")[0];
-    const trxId = messageBody.split(" ")[1];
-    const trxRef = TrxRef();
+    const orderSku = messageBody.split(" ")[0];
+    const orderId = messageBody.split(" ")[1];
+    const orderRef = OrderRef();
 
-    if (!trxSku || !trxId)
+    if (!orderSku || !orderId)
       return await wbot.sendMessage(messageRjid, {
         text: note.format1,
         mentions: [messageFrom],
@@ -370,7 +372,7 @@ export async function GroupModule(wbot, message) {
       });
 
     const digiProduct2 = digiProduct.filter(
-      (i) => i.buyer_sku_code === trxSku
+      (i) => i.buyer_sku_code === orderSku
     )[0];
 
     if (!digiProduct2)
@@ -383,9 +385,9 @@ export async function GroupModule(wbot, message) {
       (i) => i.brand === digiProduct2.brand.toLowerCase()
     )[0];
 
-    const trxPrice = ProductPrice(groupProfit, product, digiProduct2.price);
+    const orderPrice = ProductPrice(groupProfit, product, digiProduct2.price);
     if (!fromAdmin)
-      if (trxPrice > userBalance)
+      if (orderPrice > userBalance)
         return await wbot.sendMessage(messageRjid, {
           text: note.notif6,
           mentions: [messageFrom],
@@ -393,29 +395,29 @@ export async function GroupModule(wbot, message) {
 
     await wbot.sendMessage(messageRjid, {
       text:
-        `*ORDER ${trxRef} PROCESS*` +
+        `*ORDER ${orderRef} PROCESS*` +
         `\n•───────────────•` +
         `\n_Pesanan anda sedang diproses, dan status akan terupdate otomatis._`,
       mentions: [messageFrom],
     });
 
-    if (!fromAdmin) UpdateBalance(groupConf, messageFrom, trxPrice * -1);
-    const trxResult = await DigiTransaction(
+    if (!fromAdmin) UpdateBalance(groupConf, messageFrom, orderPrice * -1);
+    const orderResult = await DigiTransaction(
       groupDigikey,
       groupDigiuser,
-      trxRef,
-      trxId,
-      trxSku
+      orderRef,
+      orderId,
+      orderSku
     );
 
     let messageSend = "";
-    if (trxResult?.rc === "00") {
+    if (orderResult?.rc === "00") {
       messageSend =
-        `*ORDER ${trxRef} SUCCESS*` +
+        `*ORDER ${orderRef} SUCCESS*` +
         `\n•───────────────•` +
-        `\n${groupSign} *Id :* ${trxId}` +
-        `\n${groupSign} *Sku :* ${trxSku}` +
-        `\n${groupSign} *Harga :* ${Fnumber(trxPrice)}` +
+        `\n${groupSign} *Id :* ${orderId}` +
+        `\n${groupSign} *Sku :* ${orderSku}` +
+        `\n${groupSign} *Harga :* ${Fnumber(orderPrice)}` +
         `\n•───────────────•` +
         `\n_Pesanan anda berhasil diproses, Terimakasih sudah order._`;
 
@@ -426,29 +428,30 @@ export async function GroupModule(wbot, message) {
         let messageUser =
           `*KODE VOUCHER ANDA*` +
           `\n•───────────────•` +
-          `\n${groupSign} ${trxResult.sn}` +
+          `\n${groupSign} ${orderResult.sn}` +
           `\n•───────────────•` +
           `\n_Pesanan anda berhasil diproses, terimakasih sudah order._`;
         await wbot.sendMessage(messageFrom, { text: messageUser });
       }
     } else {
       messageSend =
-        `*ORDER ${trxRef} FAILED*` +
+        `*ORDER ${orderRef} FAILED*` +
         `\n•───────────────•` +
-        `\n${groupSign} *Id :* ${trxId}` +
-        `\n${groupSign} *Sku :* ${trxSku}` +
-        `\n${groupSign} *Harga :* ${Fnumber(trxPrice)}` +
+        `\n${groupSign} *Id :* ${orderId}` +
+        `\n${groupSign} *Sku :* ${orderSku}` +
+        `\n${groupSign} *Harga :* ${Fnumber(orderPrice)}` +
         `\n•───────────────•` +
         `\n_Pesanan anda gagal, mohon menunggu pengecekan dari admin._`;
 
-      if (!fromAdmin) UpdateBalance(groupConf, messageFrom, trxPrice);
+      if (!fromAdmin) UpdateBalance(groupConf, messageFrom, orderPrice);
       for (let admin of groupAdmin) {
         await wbot.sendMessage(admin.id, {
-          text: `ERROR ${trxRef}: ` + trxResult.message,
+          text: `ERROR ${orderRef}: ` + orderResult.message,
         });
       }
     }
 
+    UpdateOrderHistory(orderResult);
     await wbot.sendMessage(messageRjid, {
       text: messageSend,
       mentions: [messageFrom],
@@ -683,16 +686,16 @@ function ProductPrice(groupProfit, product, price) {
 }
 
 /** -------------------------
- * FUNCTION TRX REF
+ * FUNCTION ORDER REF
 -------------------------- */
-function TrxRef() {
-  let date = new Date();
-  let h = date.getHours();
-  let i = date.getMinutes();
-  let s = date.getSeconds();
-  let d = date.getDate();
-  let m = date.getMonth() + 1;
-  let y = date.getFullYear();
+function OrderRef() {
+  let orderRef = "";
+  const getOrder = GetOrder();
 
-  return "FGS" + Number(y - 2000) + m + d + h + i + s;
+  const lastOrder = getOrder[getOrder.length - 1][ref_id];
+  lastOrder
+    ? (orderRef = Number(lastOrder.split("NG")[0] + 1))
+    : (orderRef = "NG100001");
+
+  return orderRef;
 }

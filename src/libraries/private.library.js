@@ -8,6 +8,14 @@ export function GetNote() {
   return fsData;
 }
 
+export function GetOrder() {
+  const fsPath = "./src/database/order.json";
+  const fsRead = fs.readFileSync(fsPath);
+  const fsData = JSON.parse(fsRead);
+
+  return fsData;
+}
+
 export function GetConfig(groupId) {
   const fsPath = "./src/database/config.json";
   const fsRead = fs.readFileSync(fsPath);
@@ -22,7 +30,7 @@ export function Fnumber(number) {
 }
 
 /** -------------------------
- * FUNCTION REGISTER GROUP
+ * FUNCTION UPDATE DATA GROUP
 -------------------------- */
 export function UpdateGroup(groupConf) {
   const fsPath = "./src/database/config.json";
@@ -35,7 +43,20 @@ export function UpdateGroup(groupConf) {
 }
 
 /** -------------------------
- * FUNCTION UPDATE BALANCE
+ * FUNCTION UPDATE ORDER HISTORY
+-------------------------- */
+export function UpdateOrderHistory(orderData) {
+  const fsPath = "./src/database/order.json";
+  const fsRead = fs.readFileSync(fsPath);
+  const fsData = JSON.parse(fsRead);
+  const fsOrder = fsData.filter((i) => i.ref_id !== orderData.trxRef);
+
+  fsOrder.push(orderData);
+  fs.writeFileSync(fsPath, JSON.stringify(fsOrder, null, 2), "utf8");
+}
+
+/** -------------------------
+ * FUNCTION UPDATE BALANCE USER
 -------------------------- */
 export function UpdateBalance(groupConf, phone, balance) {
   const fsPath = "./src/database/config.json";

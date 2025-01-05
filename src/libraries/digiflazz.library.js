@@ -39,19 +39,19 @@ export async function DigiProduct(groupDigikey, groupDigiuser) {
 export async function DigiTransaction(
   groupDigikey,
   groupDigiuser,
-  trxRef,
-  trxId,
-  trxSku
+  orderRef,
+  orderId,
+  orderSku
 ) {
   try {
     const response = await axios.post(
       "https://api.digiflazz.com/v1/transaction",
       {
-        ref_id: trxRef,
-        customer_no: trxId,
-        buyer_sku_code: trxSku,
+        ref_id: orderRef,
+        customer_no: orderId,
+        buyer_sku_code: orderSku,
         username: groupDigiuser,
-        sign: md5(groupDigiuser + groupDigikey + trxRef),
+        sign: md5(groupDigiuser + groupDigikey + orderRef),
       }
     );
 
@@ -60,9 +60,9 @@ export async function DigiTransaction(
       return await DigiTransaction(
         groupDigikey,
         groupDigiuser,
-        trxRef,
-        trxId,
-        trxSku
+        orderRef,
+        orderId,
+        orderSku
       );
     } else {
       return response.data.data;
