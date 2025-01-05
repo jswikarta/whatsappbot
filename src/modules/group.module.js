@@ -590,7 +590,6 @@ export async function GroupModule(wbot, message) {
           const newRekening = newPayment[1];
           const newAtasnama = newPayment[2];
 
-          console.log(addBody, newPayment);
           if (!newBrand || !newRekening || !newAtasnama)
             return await wbot.sendMessage(messageRjid, {
               text: note.format3,
@@ -616,10 +615,17 @@ export async function GroupModule(wbot, message) {
         {
           const newCategory = addBody.replace(/[^a-zA-Z]/g, "");
           const addCategory = newCategory.toLowerCase();
+          const cekCategory = groupCategory.filter((i) => i === addCategory);
 
           if (!addCategory)
             return await wbot.sendMessage(messageRjid, {
               text: note.format4,
+              mentions: [messageFrom],
+            });
+
+          if (cekCategory.length)
+            return await wbot.sendMessage(messageRjid, {
+              text: note.notif16,
               mentions: [messageFrom],
             });
 
@@ -636,13 +642,13 @@ export async function GroupModule(wbot, message) {
       case "product":
         {
           const newProduct = addBody.split(".");
-          const newCode = newProduct[0].toLowerCase();
-          const newBrand = newProduct[1].toLowerCase();
+          const newCode = newProduct[0]?.toLowerCase();
+          const newBrand = newProduct[1]?.toLowerCase();
           const newProfit = Number(newProduct[2]);
-          const newCategory = newProduct[3].toLowerCase();
+          const newCategory = newProduct[3]?.toLowerCase();
           const cekCategory = groupCategory.filter((i) => i === newCategory);
 
-          if (!newCode || !newBrand || !newProfit || !newCategory)
+          if (!newCode || !newBrand || isNaN(newProfit) || !newCategory)
             return await wbot.sendMessage(messageRjid, {
               text: note.format5,
               mentions: [messageFrom],
