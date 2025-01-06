@@ -698,9 +698,9 @@ function OrderRef() {
   let orderRef = "";
   const getOrder = GetOrder();
 
-  const lastOrder = getOrder[getOrder.length - 1][ref_id];
-  lastOrder
-    ? (orderRef = Number(lastOrder.split("NG")[0] + 1))
+  const lastOrder = getOrder[getOrder.length - 1];
+  lastOrder?.ref_id
+    ? (orderRef = "NG" + (Number(lastOrder.replace("NG", "")) + 1))
     : (orderRef = "NG100001");
 
   return orderRef;
