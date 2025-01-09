@@ -36,6 +36,28 @@ export async function DigiProduct(groupDigikey, groupDigiuser) {
   }
 }
 
+export async function DigiDeposit(
+  groupDigikey,
+  groupDigiuser,
+  restokAmount,
+  restokBank,
+  restokUser
+) {
+  try {
+    const response = await axios.post("https://api.digiflazz.com/v1/deposit", {
+      username: groupDigiuser,
+      amount: restokAmount,
+      bank: restokBank,
+      owner_name: restokUser,
+      sign: md5(groupDigiuser + groupDigikey + "deposit"),
+    });
+
+    return response.data.data;
+  } catch (err) {
+    if (err.response) return err.response.data.data;
+  }
+}
+
 export async function DigiTransaction(
   groupDigikey,
   groupDigiuser,

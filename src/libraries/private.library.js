@@ -16,6 +16,14 @@ export function GetOrder() {
   return fsData;
 }
 
+export function GetDigiConfig() {
+  const fsPath = "./src/database/digiflazz.json";
+  const fsRead = fs.readFileSync(fsPath);
+  const fsData = JSON.parse(fsRead);
+
+  return fsData;
+}
+
 export function GetConfig(groupId) {
   const fsPath = "./src/database/config.json";
   const fsRead = fs.readFileSync(fsPath);

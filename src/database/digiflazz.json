@@ -1,0 +1,24 @@
+{
+  "digiBank": [
+    {
+      "bank": "BCA",
+      "rekening": "6042888890",
+      "atasnama": "Digiflazz Interkoneksi Indonesia"
+    },
+    {
+      "bank": "BNI",
+      "rekening": "1996888992",
+      "atasnama": "Digiflazz Interkoneksi Indonesia"
+    },
+    {
+      "bank": "BRI",
+      "rekening": "213501000291307",
+      "atasnama": "Digiflazz Interkoneksi Indonesia"
+    },
+    {
+      "bank": "MANDIRI",
+      "rekening": "1550009910111",
+      "atasnama": "Digiflazz Interkoneksi Indonesia"
+    }
+  ]
+}

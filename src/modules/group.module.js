@@ -7,9 +7,11 @@ import {
   UpdateGroup,
   GetOrder,
   UpdateOrderHistory,
+  GetDigiConfig,
 } from "../libraries/private.library.js";
 import {
   DigiBalance,
+  DigiDeposit,
   DigiProduct,
   DigiTransaction,
 } from "../libraries/digiflazz.library.js";
@@ -53,6 +55,9 @@ export async function GroupModule(wbot, message) {
   const groupPayment = groupConf?.groupPayment;
   const groupCategory = groupConf?.groupCategory;
   const groupProduct = groupConf?.groupProduct;
+
+  const digiConfig = GetDigiConfig();
+  const digiBank = digiConfig.digiBank;
 
   const groupBalance2 = groupBalance?.filter((i) => i.phone === messageFrom);
   const userBalance = groupBalance2?.length ? groupBalance2[0].balance : 0;
@@ -110,6 +115,10 @@ export async function GroupModule(wbot, message) {
       case "terima":
         if (groupConf) await ReplyTerima();
         break;
+      case "restok":
+      case "restock":
+        if (groupConf) await ReplyRestok();
+        break;
       case "order":
       case "trxproses":
         if (groupConf) await ReplyOrder();
@@ -150,6 +159,7 @@ export async function GroupModule(wbot, message) {
         `\n${groupSign} *Signature :* ${groupSign}` +
         `\n${groupSign} *Profit :* ${groupProfit}` +
         `\n•───────────────•\n` +
+        `\n${groupSign} restok` +
         `\n${groupSign} config sign` +
         `\n${groupSign} config profit` +
         `\n${groupSign} config digikey` +
@@ -345,6 +355,70 @@ export async function GroupModule(wbot, message) {
   }
 
   /** -------------------------
+   * FUNCTION REPLY RESTOK SALDO DIGIFLAZZ
+  -------------------------- */
+  async function ReplyRestok() {
+    if (!fromAdmin) return;
+    const restokData = messageBody.split(".");
+    const restokAmount = Number(restokData[0]);
+    const restokBank = restokData[1]?.toUpperCase();
+    const restokUser = restokData[2]?.toUpperCase();
+
+    if (isNaN(restokAmount) || !restokBank || !restokUser)
+      return await wbot.sendMessage(messageRjid, {
+        text: note.format7,
+        mentions: [messageFrom],
+      });
+
+    if (!digiBank.some((i) => i.bank === restokBank))
+      return await wbot.sendMessage(messageRjid, {
+        text: note.notif17,
+        mentions: [messageFrom],
+      });
+
+    const digiDeposit = await DigiDeposit(
+      groupDigikey,
+      groupDigiuser,
+      restokAmount,
+      restokBank,
+      restokUser
+    );
+
+    if (digiDeposit?.rc === "83")
+      return await wbot.sendMessage(messageRjid, {
+        text: note.notif4,
+        mentions: [messageFrom],
+      });
+
+    if (digiDeposit?.rc === "00") {
+      const bank = digiBank.filter((i) => i.bank === restokBank)[0];
+      const messageSend =
+        `*REQUEST RESTOK SUCCESS*` +
+        `\n•───────────────•` +
+        `\n${groupSign} *Bank :* ${bank.bank}` +
+        `\n${groupSign} *Amount :* ${digiDeposit.amount}` +
+        `\n${groupSign} *Atas Nama :* ${bank.atasnama}` +
+        `\n${groupSign} *Note :* ${digiDeposit.notes}` +
+        `\n•───────────────•` +
+        `\n_ ** Silahkan transfer ke nomor rekening yang tertera. *Note harus dimasukkan* pada bagian berita ketika transfer_`;
+
+      await wbot.sendMessage(messageFrom, {
+        text: messageSend,
+      });
+    } else {
+      const bank = digiBank.filter((i) => i.bank === restokBank)[0];
+      const messageSend =
+        `*REQUEST RESTOK ERROR*` +
+        `\n•───────────────•` +
+        `\n${digiDeposit.message}`;
+
+      await wbot.sendMessage(messageFrom, {
+        text: messageSend,
+      });
+    }
+  }
+
+  /** -------------------------
    * FUNCTION REPLY ORDER
   -------------------------- */
   async function ReplyOrder() {
@@ -451,6 +525,7 @@ export async function GroupModule(wbot, message) {
       }
     }
 
+    orderResult.groupId = groupId;
     UpdateOrderHistory(orderResult);
     await wbot.sendMessage(messageRjid, {
       text: messageSend,
@@ -700,7 +775,7 @@ function OrderRef() {
 
   const lastOrder = getOrder[getOrder.length - 1];
   lastOrder?.ref_id
-    ? (orderRef = "NG" + (Number(lastOrder.replace("NG", "")) + 1))
+    ? (orderRef = "NG" + (Number(lastOrder?.ref_id.replace("NG", "")) + 1))
     : (orderRef = "NG100001");
 
   return orderRef;
