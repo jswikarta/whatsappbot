@@ -467,6 +467,7 @@ export async function GroupModule(wbot, message) {
           mentions: [messageFrom],
         });
 
+    UpdateOrderHistory({ order_id: orderRef });
     await wbot.sendMessage(messageRjid, {
       text:
         `*ORDER ${orderRef} PROCESS*` +

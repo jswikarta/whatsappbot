@@ -57,7 +57,7 @@ export function UpdateOrderHistory(orderData) {
   const fsPath = "./src/database/order.json";
   const fsRead = fs.readFileSync(fsPath);
   const fsData = JSON.parse(fsRead);
-  const fsOrder = fsData.filter((i) => i.ref_id !== orderData.trxRef);
+  const fsOrder = fsData.filter((i) => i.ref_id !== orderData.ref_id);
 
   fsOrder.push(orderData);
   fs.writeFileSync(fsPath, JSON.stringify(fsOrder, null, 2), "utf8");
