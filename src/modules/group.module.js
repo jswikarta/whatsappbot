@@ -201,6 +201,13 @@ export async function GroupModule(wbot, message) {
    * FUNCTION REPLY PAYMENT
   -------------------------- */
   async function ReplyPay() {
+    if (groupPayment.length === 0) {
+      await wbot.sendMessage(messageRjid, {
+        text: note.notif18,
+        mentions: [messageFrom],
+      });
+    }
+
     let messageSend = `*METODE PEMBAYARAN*\n ${note.top1}`;
     for (let payment of groupPayment) {
       messageSend +=

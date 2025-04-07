@@ -21,6 +21,7 @@
   "notif14": "*WARNING*\n•───────────────•\nTerdapat Config yang belum complete, silahkan kunjungi https://github.com/jswikarta",
   "notif16": "*WARNING*\n•───────────────•\nCategory tersebut telah didaftarkan sebelumnya, silahkan ketik *MENU* untuk melihat.",
   "notif17": "*WARNING*\n•───────────────•\nBank tidak terdaftar, bank yang terdaftar adalah BCA, BRI, BNI, MANDIRI.",
+  "notif18": "*WARNING*\n•───────────────•\nPayment belum dimaintain, silahkan hubungi admin untuk informasi lebih lanjut.",
   "format1": "*FORMAT SALAH*\n•───────────────•\nFormat yang benar adalah sebagai berikut :\nOrder [SKU] [Nomor Tujuan]\n\nContoh: Order wdp 17262408671719",
   "format2": "*FORMAT SALAH*\n•───────────────•\nFormat yang benar adalah sebagai berikut :\nConfig Sign [New Data]\n\nContoh: Config sign ❐",
   "format3": "*FORMAT SALAH*\n•───────────────•\nFormat yang benar adalah sebagai berikut :\nAdd payment [Brand].[Rekening].[Atas Nama]\n\nContoh: Add payment E-wallet Dana.081316658899.Johan Saka Wikarta",
