@@ -140,6 +140,29 @@ async function StartWbot() {
     }
   });
 
+  wbot.ev.on("group-participants.update", async (data) => {
+    try {
+      const metadata = await wbot.groupMetadata(data.id);
+      const participants = data.participants;
+
+      for (const participant of participants) {
+        if (data.action === "add") {
+          const messageSend =
+            `_*Wellcome to ${metadata.subject}*_` +
+            `\nMohon Dibaca :` +
+            `\n${metadata.desc}`;
+
+          await wbot.sendMessage(data.id, {
+            text: messageSend,
+            mentions: [participant],
+          });
+        }
+      }
+    } catch (error) {
+      console.log(chalk.redBright(error));
+    }
+  });
+
   store.bind(wbot.ev);
   wbot.ev.on("creds.update", saveCreds);
 }

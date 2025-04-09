@@ -139,11 +139,13 @@ export async function GroupModule(wbot, message) {
       if (digiBalance?.rc === "83")
         return await wbot.sendMessage(messageRjid, {
           text: note.notif4,
+          mentions: [messageFrom],
         });
 
       if (digiBalance?.rc === "42")
         return await wbot.sendMessage(messageRjid, {
           text: note.notif14,
+          mentions: [messageFrom],
         });
 
       let totalBalance = 0;
@@ -154,11 +156,11 @@ export async function GroupModule(wbot, message) {
       let messageSend =
         `_*INFORMASI GROUP ANDA :*_` +
         `\n•───────────────•` +
-        `\n  ${groupSign} *Digi Balance :* ${Fnumber(digiBalance)}` +
-        `\n  ${groupSign} *User Balance :* ${Fnumber(totalBalance)}` +
-        `\n  ${groupSign} *Signature :* ${groupSign}` +
-        `\n  ${groupSign} *Profit :* ${groupProfit}` +
-        `\n\nMENU KHUSUS ADMIN :` +
+        `\n  ${groupSign} Digi Balance : ${Fnumber(digiBalance)}` +
+        `\n  ${groupSign} User Balance : ${Fnumber(totalBalance)}` +
+        `\n  ${groupSign} Signature : ${groupSign}` +
+        `\n  ${groupSign} Profit : ${groupProfit}` +
+        `\n\n_*MENU KHUSUS ADMIN :*_` +
         `\n•───────────────•` +
         `\n  ${groupSign} restok` +
         `\n  ${groupSign} config sign` +
@@ -184,11 +186,11 @@ export async function GroupModule(wbot, message) {
       `\n•───────────────•` +
       `\n  ${groupSign} *👤 :* ${userPhone}` +
       `\n  ${groupSign} *💵 :* ${Fnumber(userBalance)}` +
-      `\n_*MENU TRANSAKSI :*_` +
+      `\n\n_*MENU TRANSAKSI :*_` +
       `\n  ${groupSign} pay` +
       `\n  ${groupSign} depo` +
       `\n  ${groupSign} order` +
-      `\n_*MENU CATEGORY :*_`;
+      `\n\n_*MENU CATEGORY :*_`;
 
     if (groupCategory.length === 0) {
       messageSend += `\n  ${groupSign} Belum ada category`;
@@ -409,12 +411,13 @@ export async function GroupModule(wbot, message) {
       const messageSend =
         `*REQUEST RESTOK SUCCESS*` +
         `\n•───────────────•` +
-        `\n${groupSign} *Bank :* ${bank.bank}` +
-        `\n${groupSign} *Amount :* ${digiDeposit.amount}` +
-        `\n${groupSign} *Atas Nama :* ${bank.atasnama}` +
-        `\n${groupSign} *Note :* ${digiDeposit.notes}` +
+        `\n  ${groupSign} *Bank :* ${bank.bank}` +
+        `\n  ${groupSign} *Amount :* ${Fnumber(digiDeposit.amount)}` +
+        `\n  ${groupSign} *Rekening :* ${bank.rekening}` +
+        `\n  ${groupSign} *Atas Nama :* ${bank.atasnama}` +
+        `\n  ${groupSign} *Note :* ${digiDeposit.notes}` +
         `\n•───────────────•` +
-        `\n_ ** Silahkan transfer ke nomor rekening yang tertera. *Note harus dimasukkan* pada bagian berita ketika transfer_`;
+        `\n_** Silahkan transfer ke nomor rekening yang tertera. Note harus dimasukkan pada bagian berita ketika transfer_`;
 
       await wbot.sendMessage(messageFrom, {
         text: messageSend,
@@ -799,8 +802,8 @@ function OrderRef() {
 
   const lastOrder = getOrder[getOrder.length - 1];
   lastOrder?.ref_id
-    ? (orderRef = "NG" + (Number(lastOrder?.ref_id.replace("NG", "")) + 1))
-    : (orderRef = "NG100001");
+    ? (orderRef = "JS" + (Number(lastOrder?.ref_id.replace("JS", "")) + 1))
+    : (orderRef = "JS100001");
 
   return orderRef;
 }
