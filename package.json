@@ -1,5 +1,5 @@
 {
-  "name": "js-whatsappbot",
+  "name": "whatsappbot",
   "version": "1.0.0",
   "description": "WhatsApp bot connected to Digiflazz",
   "main": "index.js",
