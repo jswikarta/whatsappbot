@@ -152,21 +152,22 @@ export async function GroupModule(wbot, message) {
       }
 
       let messageSend =
-        `*INFO ${groupName.toUpperCase()}*` +
-        `\n•───────────────•\n` +
-        `\n${groupSign} *Digi Balance :* ${Fnumber(digiBalance)}` +
-        `\n${groupSign} *User Balance :* ${Fnumber(totalBalance)}` +
-        `\n${groupSign} *Signature :* ${groupSign}` +
-        `\n${groupSign} *Profit :* ${groupProfit}` +
-        `\n•───────────────•\n` +
-        `\n${groupSign} restok` +
-        `\n${groupSign} config sign` +
-        `\n${groupSign} config profit` +
-        `\n${groupSign} config digikey` +
-        `\n${groupSign} config digiuser` +
-        `\n${groupSign} add payment` +
-        `\n${groupSign} add category` +
-        `\n${groupSign} add product`;
+        `_*INFORMASI GROUP ANDA :*_` +
+        `\n•───────────────•` +
+        `\n  ${groupSign} *Digi Balance :* ${Fnumber(digiBalance)}` +
+        `\n  ${groupSign} *User Balance :* ${Fnumber(totalBalance)}` +
+        `\n  ${groupSign} *Signature :* ${groupSign}` +
+        `\n  ${groupSign} *Profit :* ${groupProfit}` +
+        `\n\nMENU KHUSUS ADMIN :` +
+        `\n•───────────────•` +
+        `\n  ${groupSign} restok` +
+        `\n  ${groupSign} config sign` +
+        `\n  ${groupSign} config profit` +
+        `\n  ${groupSign} config digikey` +
+        `\n  ${groupSign} config digiuser` +
+        `\n  ${groupSign} add payment` +
+        `\n  ${groupSign} add category` +
+        `\n  ${groupSign} add product`;
 
       await wbot.sendMessage(messageFrom, { text: messageSend });
     }
@@ -179,16 +180,22 @@ export async function GroupModule(wbot, message) {
     const userPhone = messageFrom.split("@")[0];
 
     let messageSend =
-      `*MENU ${groupName.toUpperCase()}*\n` +
-      `\n${groupSign} *👤 :* ${userPhone}` +
-      `\n${groupSign} *💵 :* ${Fnumber(userBalance)}` +
-      `\n•───────────────•\n` +
-      `\n${groupSign} pay` +
-      `\n${groupSign} depo` +
-      `\n${groupSign} order`;
+      `_*MENU ${groupName.toUpperCase()}*_` +
+      `\n•───────────────•` +
+      `\n  ${groupSign} *👤 :* ${userPhone}` +
+      `\n  ${groupSign} *💵 :* ${Fnumber(userBalance)}` +
+      `\n_*MENU TRANSAKSI :*_` +
+      `\n  ${groupSign} pay` +
+      `\n  ${groupSign} depo` +
+      `\n  ${groupSign} order` +
+      `\n_*MENU CATEGORY :*_`;
 
-    for (let category of groupCategory) {
-      messageSend += `\n${groupSign} ${category}`;
+    if (groupCategory.length === 0) {
+      messageSend += `\n  ${groupSign} Belum ada category`;
+    } else {
+      for (let category of groupCategory) {
+        messageSend += `\n  ${groupSign} ${category}`;
+      }
     }
 
     await wbot.sendMessage(messageRjid, {
@@ -366,14 +373,14 @@ export async function GroupModule(wbot, message) {
   -------------------------- */
   async function ReplyRestok() {
     if (!fromAdmin) return;
-    const restokData = messageBody.split(".");
+    const restokData = messageBody.split("..");
     const restokAmount = Number(restokData[0]);
     const restokBank = restokData[1]?.toUpperCase();
     const restokUser = restokData[2]?.toUpperCase();
 
     if (isNaN(restokAmount) || !restokBank || !restokUser)
       return await wbot.sendMessage(messageRjid, {
-        text: note.format7,
+        text: note.format6,
         mentions: [messageFrom],
       });
 
@@ -475,13 +482,16 @@ export async function GroupModule(wbot, message) {
         });
 
     UpdateOrderHistory({ ref_id: orderRef });
-    await wbot.sendMessage(messageRjid, {
-      text:
-        `*ORDER ${orderRef} PROCESS*` +
-        `\n•───────────────•` +
-        `\n_Pesanan anda sedang diproses, dan status akan terupdate otomatis._`,
-      mentions: [messageFrom],
-    });
+    await wbot.sendMessage(
+      messageRjid,
+      {
+        text:
+          `*ORDER ${orderRef} PROCESS*` +
+          `\n•───────────────•` +
+          `\n_Pesanan anda sedang diproses, dan status akan terupdate otomatis._`,
+      },
+      { quoted: message }
+    );
 
     if (!fromAdmin) UpdateBalance(groupConf, messageFrom, orderPrice * -1);
     const orderResult = await DigiTransaction(
@@ -513,7 +523,12 @@ export async function GroupModule(wbot, message) {
           `\n${groupSign} ${orderResult.sn}` +
           `\n•───────────────•` +
           `\n_Pesanan anda berhasil diproses, terimakasih sudah order._`;
-        await wbot.sendMessage(messageFrom, { text: messageUser });
+
+        await wbot.sendMessage(
+          messageFrom,
+          { text: messageUser },
+          { quoted: message }
+        );
       }
     } else {
       messageSend =
@@ -535,10 +550,11 @@ export async function GroupModule(wbot, message) {
 
     orderResult.groupId = groupId;
     UpdateOrderHistory(orderResult);
-    await wbot.sendMessage(messageRjid, {
-      text: messageSend,
-      mentions: [messageFrom],
-    });
+    await wbot.sendMessage(
+      messageRjid,
+      { text: messageSend },
+      { quoted: message }
+    );
   }
 
   /** -------------------------
@@ -668,7 +684,7 @@ export async function GroupModule(wbot, message) {
               mentions: [messageFrom],
             });
 
-          const newPayment = addBody.split(".");
+          const newPayment = addBody.split("..");
           const newBrand = newPayment[0];
           const newRekening = newPayment[1];
           const newAtasnama = newPayment[2];
@@ -724,7 +740,7 @@ export async function GroupModule(wbot, message) {
 
       case "product":
         {
-          const newProduct = addBody.split(".");
+          const newProduct = addBody.split("..");
           const newCode = newProduct[0]?.toLowerCase();
           const newBrand = newProduct[1]?.toLowerCase();
           const newProfit = Number(newProduct[2]);
