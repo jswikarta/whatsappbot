@@ -1,4 +1,4 @@
-import { getContentType } from "baileys";
+import { getContentType } from "@whiskeysockets/baileys";
 import {
   GetNote,
   GetConfig,

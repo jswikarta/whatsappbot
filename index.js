@@ -3,7 +3,7 @@ import {
   DisconnectReason,
   makeInMemoryStore,
   useMultiFileAuthState,
-} from "baileys";
+} from "@whiskeysockets/baileys";
 import pino from "pino";
 import chalk from "chalk";
 import { Boom } from "@hapi/boom";

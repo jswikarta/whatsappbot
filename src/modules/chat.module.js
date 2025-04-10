@@ -1,3 +1,3 @@
-import { getContentType } from "baileys";
+import { getContentType } from "@whiskeysockets/baileys";
 
 export async function ChatModule(wbot, message) {}
