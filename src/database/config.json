@@ -1,1 +1,205 @@
-[]
+[
+  {
+    "groupId": "120363121723320923@g.us",
+    "groupSign": "❐",
+    "groupProfit": 1.5,
+    "groupDigikey": "a5578372-17bf-53bd-b985-8134608153d6",
+    "groupDigiuser": "sagareWjNaBW",
+    "groupBalance": [],
+    "groupPayment": [
+      {
+        "brand": "Bank Mandiri",
+        "rekening": "1080024639362",
+        "atasnama": "Johan Saka Wikarta"
+      }
+    ],
+    "groupCategory": [
+      "pulsa",
+      "games",
+      "emoney",
+      "voucher"
+    ],
+    "groupProduct": [
+      {
+        "code": "ml",
+        "brand": "mobile legends",
+        "profit": 0,
+        "category": "games"
+      },
+      {
+        "code": "ff",
+        "brand": "free fire",
+        "profit": 0,
+        "category": "games"
+      },
+      {
+        "code": "aov",
+        "brand": "arena of valor",
+        "profit": 0,
+        "category": "games"
+      },
+      {
+        "code": "pubg",
+        "brand": "pubg mobile",
+        "profit": 0,
+        "category": "games"
+      },
+      {
+        "code": "sd",
+        "brand": "speed drifters",
+        "profit": 0,
+        "category": "games"
+      },
+      {
+        "code": "valo",
+        "brand": "valorant",
+        "profit": 0,
+        "category": "games"
+      },
+      {
+        "code": "gi",
+        "brand": "genshin impact",
+        "profit": 0,
+        "category": "games"
+      },
+      {
+        "code": "lol",
+        "brand": "league of legends wild rift",
+        "profit": 0,
+        "category": "games"
+      },
+      {
+        "code": "hsr",
+        "brand": "honkai star rail",
+        "profit": 0,
+        "category": "games"
+      },
+      {
+        "code": "tft",
+        "brand": "teamfight tactics mobile",
+        "profit": 0,
+        "category": "games"
+      },
+      {
+        "code": "hok",
+        "brand": "honor of kings",
+        "profit": 0,
+        "category": "games"
+      },
+      {
+        "code": "zzz",
+        "brand": "zenless zone zero",
+        "profit": 0,
+        "category": "games"
+      },
+      {
+        "code": "mr",
+        "brand": "marvel rivals",
+        "profit": 0,
+        "category": "games"
+      },
+      {
+        "code": "wuwa",
+        "brand": "wuthering waves",
+        "profit": 0,
+        "category": "games"
+      },
+      {
+        "code": "telkomsel",
+        "brand": "telkomsel",
+        "profit": 100,
+        "category": "pulsa"
+      },
+      {
+        "code": "indosate",
+        "brand": "indosat",
+        "profit": 100,
+        "category": "pulsa"
+      },
+      {
+        "code": "axis",
+        "brand": "axis",
+        "profit": 100,
+        "category": "pulsa"
+      },
+      {
+        "code": "smartfren",
+        "brand": "smartfren",
+        "profit": 100,
+        "category": "pulsa"
+      },
+      {
+        "code": "tri",
+        "brand": "tri",
+        "profit": 100,
+        "category": "pulsa"
+      },
+      {
+        "code": "xl",
+        "brand": "xl",
+        "profit": 100,
+        "category": "pulsa"
+      },
+      {
+        "code": "byu",
+        "brand": "byu",
+        "profit": 100,
+        "category": "pulsa"
+      },
+      {
+        "code": "gopay",
+        "brand": "go pay",
+        "profit": 100,
+        "category": "emoney"
+      },
+      {
+        "code": "ovo",
+        "brand": "ovo",
+        "profit": 100,
+        "category": "emoney"
+      },
+      {
+        "code": "dana",
+        "brand": "dana",
+        "profit": 100,
+        "category": "emoney"
+      },
+      {
+        "code": "shopee",
+        "brand": "shopee pay",
+        "profit": 100,
+        "category": "emoney"
+      },
+      {
+        "code": "pln",
+        "brand": "pln",
+        "profit": 100,
+        "category": "voucher"
+      },
+      {
+        "code": "gplay",
+        "brand": "google play indonesia",
+        "profit": 100,
+        "category": "voucher"
+      },
+      {
+        "code": "shell",
+        "brand": "garena",
+        "profit": 100,
+        "category": "voucher"
+      },
+      {
+        "code": "steam",
+        "brand": "steam wallet (idr)",
+        "profit": 100,
+        "category": "voucher"
+      },
+      {
+        "code": "roblox",
+        "brand": "roblox",
+        "profit": 100,
+        "category": "voucher"
+      }
+    ]
+  }
+]

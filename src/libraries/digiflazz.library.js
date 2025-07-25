@@ -1,6 +1,5 @@
 import md5 from "md5";
 import axios from "axios";
-import "dotenv/config";
 
 export async function DigiBalance(groupDigikey, groupDigiuser) {
   try {

@@ -15,7 +15,6 @@ import {
   DigiProduct,
   DigiTransaction,
 } from "../libraries/digiflazz.library.js";
-import "dotenv/config";
 
 export async function GroupModule(wbot, message) {
   const messageType = getContentType(message.message);
@@ -36,7 +35,7 @@ export async function GroupModule(wbot, message) {
   const messageHead = messageText.split(" ")[0].toLowerCase();
   const messageBody = messageText.split(" ").slice(1).join(" ");
 
-  const botOwner = `${process.env.PHONE}@s.whatsapp.net`;
+  const botOwner = `6281316658899@s.whatsapp.net`;
   const botPhone = wbot.user.id.split(":")[0] + "@s.whatsapp.net";
   const fromOwner = messageFrom === botOwner ? true : false;
 
