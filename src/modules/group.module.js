@@ -5,7 +5,6 @@ import {
   Fnumber,
   UpdateBalance,
   UpdateGroup,
-  GetOrder,
   UpdateOrderHistory,
   GetDigiConfig,
 } from "../libraries/private.library.js";
@@ -515,10 +514,7 @@ export async function GroupModule(wbot, message) {
         `\n•───────────────•` +
         `\n_Pesanan anda berhasil diproses, Terimakasih sudah order._`;
 
-      if (
-        product.category === "topupvoucher" ||
-        product.category === "topuppln"
-      ) {
+      if (product.category === "voucher" || product.category === "pln") {
         let messageUser =
           `*KODE VOUCHER ANDA*` +
           `\n•───────────────•` +
@@ -796,13 +792,15 @@ function ProductPrice(groupProfit, product, price) {
  * FUNCTION ORDER REF
 -------------------------- */
 function OrderRef() {
-  let orderRef = "";
-  const getOrder = GetOrder();
+  const date = new Date();
+  const pad = (num) => num.toString().padStart(2, "0");
 
-  const lastOrder = getOrder[getOrder.length - 1];
-  lastOrder?.ref_id
-    ? (orderRef = "JS" + (Number(lastOrder?.ref_id.replace("JS", "")) + 1))
-    : (orderRef = "JS100001");
+  const year = date.getFullYear().toString().slice(-2);
+  const month = pad(date.getMonth() + 1);
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const seconds = pad(date.getSeconds());
 
-  return orderRef;
+  return `${year}${month}${day}${hours}${minutes}${seconds}`;
 }
