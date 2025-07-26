@@ -32,7 +32,7 @@ npm install
 
 3. **Run the WhatsApp Bot:**
 ```bash
-node .
+node index.js
 ```
 
 ## Connection & List Command
@@ -40,8 +40,8 @@ node .
 After run whatsappbot open your phone and scan whatsapp qr-code to connect whatsappbot. Here some command to use:
 
 - Config Group : register whatsapp group
-- Info : to check group config
-- Menu : to check list user command
+- Config add digiuser : register your digiflazz username
+- Config add digikey : register your digiflazz production key
 
 ## License
 
