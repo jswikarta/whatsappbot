@@ -332,7 +332,7 @@ export async function GroupModule(wbot, message) {
       for (let i of digiProduct2) {
         const productPrice = ProductPrice(groupProfit, product, i.price);
 
-        if (i.type === "Umum" || i.type === "Customer")
+        if (i.type === "Umum" || i.type === "Customer") {
           if (i.seller_product_status)
             productUmum +=
               `\n\n*${i.product_name}*` +
@@ -343,7 +343,7 @@ export async function GroupModule(wbot, message) {
               `\n\n*~${i.product_name}~*` +
               `\n${groupSign} Harga : ${Fnumber(productPrice)}` +
               `\n${groupSign} Sku : ${i.buyer_sku_code}`;
-        else if (i.type === "Membership")
+        } else if (i.type === "Membership") {
           if (i.seller_product_status)
             productMember +=
               `\n\n*${i.product_name}*` +
@@ -354,6 +354,18 @@ export async function GroupModule(wbot, message) {
               `\n\n*~${i.product_name}~*` +
               `\n${groupSign} Harga : ${Fnumber(productPrice)}` +
               `\n${groupSign} Sku : ${i.buyer_sku_code}`;
+        } else {
+          if (i.seller_product_status)
+            productMember +=
+              `\n\n*${i.product_name}*` +
+              `\n${groupSign} Harga : ${Fnumber(productPrice)}` +
+              `\n${groupSign} Sku : ${i.buyer_sku_code}`;
+          else
+            productMember +=
+              `\n\n*~${i.product_name}~*` +
+              `\n${groupSign} Harga : ${Fnumber(productPrice)}` +
+              `\n${groupSign} Sku : ${i.buyer_sku_code}`;
+        }
       }
 
       let messageSend =
