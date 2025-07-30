@@ -30,11 +30,12 @@ export async function GroupModule(wbot, message) {
       : "";
 
   const messageRjid = message.key.remoteJid;
-  const messageFrom = message.key.participant;
   const messageHead = messageText.split(" ")[0].toLowerCase();
   const messageBody = messageText.split(" ").slice(1).join(" ");
+  const messageFrom =
+    message.key.participant.split("@")[0] + "_1@s.whatsapp.net";
 
-  const botOwner = `6281316658899@s.whatsapp.net`;
+  const botOwner = `274049011818746_1@s.whatsapp.net`;
   const botPhone = wbot.user.id.split(":")[0] + "@s.whatsapp.net";
   const fromOwner = messageFrom === botOwner ? true : false;
 
@@ -60,11 +61,11 @@ export async function GroupModule(wbot, message) {
   const groupBalance2 = groupBalance?.filter((i) => i.phone === messageFrom);
   const userBalance = groupBalance2?.length ? groupBalance2[0].balance : 0;
 
-  const botAdmin = !groupUser.filter(
-    (i) => i.id === botPhone && i.admin !== null
-  ).length
-    ? false
-    : true;
+  // const botAdmin = !groupUser.filter(
+  //   (i) => i.id === botPhone && i.admin !== null
+  // ).length
+  //   ? false
+  //   : true;
 
   const fromAdmin = !groupUser.filter(
     (i) => i.id === messageFrom && i.admin !== null
@@ -76,56 +77,56 @@ export async function GroupModule(wbot, message) {
     (i) => i.admin !== null && i.id !== botPhone
   );
 
-  if (botAdmin)
-    switch (messageHead) {
-      case "h":
-      case "htag":
-      case "hidetag":
-        {
-          if (!fromAdmin) break;
-          await wbot.sendMessage(messageRjid, {
-            text: messageBody,
-            mentions: groupUser.map((i) => i.id),
-          });
-        }
-        break;
-      case "config":
-        await ReplyConfig();
-        break;
-      case "add":
-        if (groupConf) await ReplyAdd();
-        break;
-      case "info":
-        if (groupConf && !messageBody) await ReplyInfo();
-        break;
-      case "menu":
-        if (groupConf && !messageBody) await ReplyMenu();
-        break;
-      case "pay":
-      case "payment":
-        if (groupConf && !messageBody) await ReplyPay();
-        break;
-      case "depo":
-      case "deposit":
-        if (groupConf) await ReplyDepo();
-        break;
-      case "ok":
-      case "terima":
-        if (groupConf) await ReplyTerima();
-        break;
-      case "restok":
-      case "restock":
-        if (groupConf) await ReplyRestok();
-        break;
-      case "order":
-      case "trxproses":
-        if (groupConf) await ReplyOrder();
-        break;
-      default:
-        if (groupConf && !messageBody) await ReplyCategory();
-        if (groupConf && !messageBody) await ReplyProduct();
-        break;
-    }
+  // if (botAdmin)
+  switch (messageHead) {
+    case "h":
+    case "htag":
+    case "hidetag":
+      {
+        if (!fromAdmin) break;
+        await wbot.sendMessage(messageRjid, {
+          text: messageBody,
+          mentions: groupUser.map((i) => i.id),
+        });
+      }
+      break;
+    case "config":
+      await ReplyConfig();
+      break;
+    case "add":
+      if (groupConf) await ReplyAdd();
+      break;
+    case "info":
+      if (groupConf && !messageBody) await ReplyInfo();
+      break;
+    case "menu":
+      if (groupConf && !messageBody) await ReplyMenu();
+      break;
+    case "pay":
+    case "payment":
+      if (groupConf && !messageBody) await ReplyPay();
+      break;
+    case "depo":
+    case "deposit":
+      if (groupConf) await ReplyDepo();
+      break;
+    case "ok":
+    case "terima":
+      if (groupConf) await ReplyTerima();
+      break;
+    case "restok":
+    case "restock":
+      if (groupConf) await ReplyRestok();
+      break;
+    case "order":
+    case "trxproses":
+      if (groupConf) await ReplyOrder();
+      break;
+    default:
+      if (groupConf && !messageBody) await ReplyCategory();
+      if (groupConf && !messageBody) await ReplyProduct();
+      break;
+  }
   return messageText;
 
   /** -------------------------
@@ -329,6 +330,7 @@ export async function GroupModule(wbot, message) {
 
       let productUmum = "";
       let productMember = "";
+      let productOther = "";
       for (let i of digiProduct2) {
         const productPrice = ProductPrice(groupProfit, product, i.price);
 
@@ -356,12 +358,12 @@ export async function GroupModule(wbot, message) {
               `\n${groupSign} Sku : ${i.buyer_sku_code}`;
         } else {
           if (i.seller_product_status)
-            productMember +=
+            productOther +=
               `\n\n*${i.product_name}*` +
               `\n${groupSign} Harga : ${Fnumber(productPrice)}` +
               `\n${groupSign} Sku : ${i.buyer_sku_code}`;
           else
-            productMember +=
+            productOther +=
               `\n\n*~${i.product_name}~*` +
               `\n${groupSign} Harga : ${Fnumber(productPrice)}` +
               `\n${groupSign} Sku : ${i.buyer_sku_code}`;
@@ -371,7 +373,8 @@ export async function GroupModule(wbot, message) {
       let messageSend =
         `*MENU ${product.brand.toUpperCase()}*${note.top2}` +
         productUmum +
-        productMember;
+        productMember +
+        productOther;
 
       await wbot.sendMessage(messageRjid, {
         text: messageSend,
