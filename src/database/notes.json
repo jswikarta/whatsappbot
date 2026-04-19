@@ -1,0 +1,14 @@
+{
+  "topPayment": "\n_** The balance that has been added applies to all available products._\n•───────────────•",
+  "bottomMenu": "\n\n•───────────────•\n_** Select your desired menu by typing the keyword provided._",
+  "bottomPayment": "\n\n•───────────────•\n_** After making the payment, please send the proof of transfer to the group and proceed with your deposit._",
+  "bottomProduct": "\n\n•───────────────•\n_** Choose the items you want and complete your purchase process._",
+  "notifDeposit1": "_The deposit request is currently awaiting admin confirmation._",
+  "notifDeposit2": "_To make a deposit, send your transfer proof as an image with the caption: Deposit [amount]_\nExample: Deposit 50000",
+  "notifAccepted1": "_Deposit successful. Please type *menu* to view your balance._",
+  "notifAccepted2": "_To process your payment, please reply to the message containing the proof of transfer and the deposit amount._",
+  "notifPurchase1": "_Your order is being processed, and the status will be updated automatically._",
+  "notifPurchase2": "_SKU code not found. Please double-check before proceeding with the transaction._",
+  "notifPurchase3": "_Insufficient balance. Please top up your account before proceeding._",
+  "formatPurchase": "*INVALID FORMAT*\n•───────────────•\nThe correct format is as follows:\nOrder [SKU] [Destination Number]\n\nExample: Order wdp 17262408671719"
+}
