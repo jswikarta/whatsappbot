@@ -1,5 +1,20 @@
 [
   {
+    "code": "tsel",
+    "name": "Telkomsel",
+    "category": "Pulsa"
+  },
+  {
+    "code": "xl",
+    "name": "XL",
+    "category": "Pulsa"
+  },
+  {
+    "code": "sf",
+    "name": "Smartfren",
+    "category": "Pulsa"
+  },
+  {
     "code": "ml",
     "name": "Mobile Legends",
     "category": "Games"
