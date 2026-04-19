@@ -1,4 +1,5 @@
 import {
+  formatCurrency,
   getNotes,
   getProducts,
   getVariants,
@@ -20,7 +21,7 @@ export default async function productCommand(messageHead, messageBody) {
       ``,
       `*${variant.name}*`,
       `  ❐ Sku: *${variant.sku}*`,
-      `  ❐ Price: *${variant.price}*`,
+      `  ❐ Price: *${formatCurrency(variant.price)}*`,
     );
   }
 
