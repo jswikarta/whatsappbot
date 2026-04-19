@@ -19,8 +19,9 @@ export default async function groupChat(
 
   const userBalance = getUserBalance(userNumber);
 
-  const [messageHead, ...messageRest] = message.body.split(" ");
-  const messageBody = messageRest.join(" ");
+  const [rawHead, ...rawBody] = message.body.split(" ");
+  const messageHead = rawHead.toLowerCase();
+  const messageBody = rawBody.join(" ");
 
   const group = chat.groupMetadata;
   const groupSubject = group.subject;
@@ -36,7 +37,7 @@ export default async function groupChat(
 
   let text;
 
-  switch (messageHead.toLowerCase()) {
+  switch (messageHead) {
     case "menu":
       text = await menuCommand(
         messageBody,
