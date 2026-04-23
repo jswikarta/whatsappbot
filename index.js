@@ -7,24 +7,7 @@ import groupChat from "./src/chats/group.chat.js";
 
 const { Client, LocalAuth } = wwebjs;
 const executablePath = process.env.EXECUTABLE_PATH;
-
-const askQuestion = (question) => {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
-
-  return new Promise((resolve) => {
-    rl.question(question, (answer) => {
-      rl.close();
-      resolve(answer.trim());
-    });
-  });
-};
-
-const phoneNumber = await askQuestion(
-  chalk.bold.yellow("Masukkan nomor HP (contoh: 628XXXXXXXXXX): "),
-);
+const phoneNumber = process.env.PHONE_NUMBER;
 
 const client = new Client({
   authStrategy: new LocalAuth(),
