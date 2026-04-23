@@ -5,13 +5,13 @@
     "category": "Pulsa"
   },
   {
-    "code": "xl",
-    "name": "XL",
+    "code": "sf",
+    "name": "Smartfren",
     "category": "Pulsa"
   },
   {
-    "code": "sf",
-    "name": "Smartfren",
+    "code": "xl",
+    "name": "XL",
     "category": "Pulsa"
   },
   {
@@ -23,5 +23,20 @@
     "code": "ff",
     "name": "Free Fire",
     "category": "Games"
+  },
+  {
+    "code": "valo",
+    "name": "Valorant",
+    "category": "Games"
+  },
+  {
+    "code": "gi",
+    "name": "Genshin Impact",
+    "category": "Games"
+  },
+  {
+    "code": "pln",
+    "name": "Token Listrik",
+    "category": "Voucher"
   }
 ]
