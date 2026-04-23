@@ -2,17 +2,51 @@ import "dotenv/config";
 import wwebjs from "whatsapp-web.js";
 import qrcode from "qrcode-terminal";
 import chalk from "chalk";
+import readline from "readline";
 import groupChat from "./src/chats/group.chat.js";
 
 const { Client, LocalAuth } = wwebjs;
+const executablePath = process.env.EXECUTABLE_PATH;
+
+const askQuestion = (question) => {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  return new Promise((resolve) => {
+    rl.question(question, (answer) => {
+      rl.close();
+      resolve(answer.trim());
+    });
+  });
+};
+
+const phoneNumber = await askQuestion(
+  chalk.bold.yellow("Masukkan nomor HP (contoh: 628XXXXXXXXXX): "),
+);
 
 const client = new Client({
   authStrategy: new LocalAuth(),
-  puppeteer: { args: ["--no-sandbox"] },
+  puppeteer: {
+    deviceName: "Whatsappbot",
+    browserName: "Chrome",
+    executablePath: executablePath,
+    headless: true,
+  },
+  pairWithPhoneNumber: {
+    phoneNumber: phoneNumber,
+    showNotification: true,
+    intervalMs: 180000,
+  },
 });
 
 client.on("qr", (qr) => {
   qrcode.generate(qr, { small: true });
+});
+
+client.on("code", (code) => {
+  console.log("Pairing code:", code);
 });
 
 client.on("ready", () => {

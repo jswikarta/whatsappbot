@@ -9,22 +9,22 @@ function readJson(filePath) {
 }
 
 export function getNotes() {
-  return readJson("./src/database/notes.json");
+  return readJson("./src/configs/notes.json");
 }
 
 export function getPayments() {
-  return readJson("./src/database/payments.json");
+  return readJson("./src/configs/payments.json");
 }
 
 export function getProducts(code) {
-  const products = readJson("./src/database/products.json");
+  const products = readJson("./src/configs/products.json");
 
   if (!code) return products;
   return products.find((i) => i.code === code) ?? null;
 }
 
 export function getVariants(code, sku) {
-  const variants = readJson("./src/database/variants.json");
+  const variants = readJson("./src/configs/variants.json");
 
   if (!code && !sku) return variants;
   if (code) return variants.filter((i) => i.product === code) ?? [];
@@ -32,14 +32,14 @@ export function getVariants(code, sku) {
 }
 
 export function getUserBalance(userNumber) {
-  const users = readJson("./src/database/users.json");
+  const users = readJson("./src/configs/users.json");
   const user = users.find((i) => i.userNumber === userNumber);
 
   return user?.userBalance ?? 0;
 }
 
 export function updateBalance(userNumber, addBalance = 0, reduceBalance = 0) {
-  const fsPath = "./src/database/users.json";
+  const fsPath = "./src/configs/users.json";
   const users = readJson(fsPath);
 
   const addition = Number(addBalance);
