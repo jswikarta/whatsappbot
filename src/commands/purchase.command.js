@@ -34,7 +34,7 @@ export default async function purchaseCommand(
 
   updateBalance(userNumber, 0, variant.price);
 
-  const digiResult = await digiTransaction(orderRef, orderId, orderSku);
+  const digiResult = await digiTransaction(orderRef, orderId, orderSku, variant.price);
   const isSuccess = digiResult.rc === "00";
 
   const purchaseMessage = [
@@ -50,7 +50,7 @@ export default async function purchaseCommand(
   ];
 
   if (isSuccess) {
-    if (product?.category !== "voucher") {
+    if (product?.category === "Voucher") {
       await client.sendMessage(
         `${userNumber}@c.us`,
         [

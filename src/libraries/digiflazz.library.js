@@ -18,12 +18,13 @@ async function digiPost(endpoint, payload) {
   }
 }
 
-export async function digiTransaction(orderRef, orderId, orderSku) {
+export async function digiTransaction(orderRef, orderId, orderSku, orderPrice) {
   const result = await digiPost("transaction", {
     ref_id: orderRef,
     customer_no: orderId,
     buyer_sku_code: orderSku,
     username: digiUser,
+    max_price: orderPrice,
     sign: md5(digiUser + digiKey + orderRef),
   });
 
@@ -31,7 +32,7 @@ export async function digiTransaction(orderRef, orderId, orderSku) {
 
   if (result.data.rc === rcPending) {
     await new Promise((resolve) => setTimeout(resolve, retryDelay));
-    return digiTransaction(orderRef, orderId, orderSku);
+    return digiTransaction(orderRef, orderId, orderSku, orderPrice);
   }
 
   return result.data;
