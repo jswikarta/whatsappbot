@@ -16,10 +16,11 @@ export function getPayments() {
   return readJson("./src/configs/payments.json");
 }
 
-export function getProducts(code) {
+export function getProducts(code = "all") {
   const products = readJson("./src/configs/products.json");
 
   if (!code) return null;
+  else if (code === "all") return products;
   return products.find((i) => i.code === code) ?? null;
 }
 

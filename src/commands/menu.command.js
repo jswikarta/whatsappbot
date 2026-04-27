@@ -13,7 +13,7 @@ export default async function menuCommand(
   if (messageBody) return null;
 
   const notes = getNotes();
-  const products = getProducts();
+  const products = getProducts("all");
   const grouped = groupByCategory(products);
 
   const menuMessage = [
