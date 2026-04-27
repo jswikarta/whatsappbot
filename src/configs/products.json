@@ -38,5 +38,15 @@
     "code": "pln",
     "name": "Token Listrik",
     "category": "Voucher"
+  },
+  {
+    "code": "gplay",
+    "name": "Google Play",
+    "category": "Voucher"
+  },
+  {
+    "code": "steam",
+    "name": "Steam Wallet",
+    "category": "Voucher"
   }
 ]

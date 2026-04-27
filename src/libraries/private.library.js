@@ -19,7 +19,7 @@ export function getPayments() {
 export function getProducts(code) {
   const products = readJson("./src/configs/products.json");
 
-  if (!code) return products;
+  if (!code) return null;
   return products.find((i) => i.code === code) ?? null;
 }
 
