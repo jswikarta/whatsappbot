@@ -1,7 +1,12 @@
 [
   {
-    "brand": "Bank BCA",
-    "accountNumber": "0710481601",
+    "brand": "Qris",
+    "accountNumber": "qris",
+    "accountName": "FargoGame"
+  },
+  {
+    "brand": "Gopay",
+    "accountNumber": "082364491299",
     "accountName": "Johan Saka Wikarta"
   }
 ]
