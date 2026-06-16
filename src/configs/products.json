@@ -20,6 +20,16 @@
     "category": "Pulsa"
   },
   {
+    "code": "dana",
+    "name": "Dana",
+    "category": "E-Wallet"
+  },
+  {
+    "code": "gopay",
+    "name": "GoPay",
+    "category": "E-Wallet"
+  },
+  {
     "code": "ml",
     "name": "Mobile Legends",
     "category": "Games"
