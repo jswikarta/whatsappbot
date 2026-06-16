@@ -86,7 +86,7 @@
   { "product": "ml", "sku": "mlbb_id_wdpx3", "name": "Mobile Legends Weekly Diamond Pass 3x", "price": 83427 },
   { "product": "ml", "sku": "mlbb_id_sl", "name": "Mobile Legends Startlight Member", "price": 77000 },
   { "product": "ml", "sku": "mlbb_id_slplus", "name": "Mobile Legends Startlight Member Plus", "price": 190000 },
-  { "product": "ml", "sku": "mlbb_br_wdp", "name": "Mobile Legends Weekly Diamond Pass (Brazil)", "price": 26874 },
+  { "product": "ml", "sku": "mlbb_br_wdp", "name": "Mobile Legends Weekly Diamond Pass (Brazil)", "price": 24500 },
   { "product": "pln", "sku": "pln_20", "name": "PLN 20.000", "price": 21800 },
   { "product": "pln", "sku": "pln_50", "name": "PLN 50.000", "price": 51800 },
   { "product": "pln", "sku": "pln_100", "name": "PLN 100.000", "price": 101800 },
